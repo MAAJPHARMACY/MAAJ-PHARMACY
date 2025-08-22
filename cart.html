@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart - Medicine Store</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="max-w-3xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-2xl font-bold mb-4 text-center text-blue-600">🛒 My Cart</h1>
+    
+    <!-- Cart Items -->
+    <div id="cartPageItems" class="space-y-4"></div>
+    <div id="cartPageSummary" class="mt-4 font-bold text-xl text-blue-700"></div>
+
+    <!-- Step 1 → Continue -->
+    <button id="continueBtn" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Continue</button>
+
+    <!-- Step 2 → Customer Details -->
+    <div id="customerForm" class="hidden mt-6 space-y-3">
+      <h2 class="text-lg font-semibold">Customer Details</h2>
+      <input id="customerName" type="text" placeholder="Full Name" class="border p-2 w-full rounded">
+      <input id="customerPhone" type="text" placeholder="Phone Number" class="border p-2 w-full rounded">
+      <input id="customerAddress" type="text" placeholder="Full Address" class="border p-2 w-full rounded">
+      <input id="customerPincode" type="text" placeholder="Pincode" class="border p-2 w-full rounded">
+      <button id="proceedPaymentBtn" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Proceed to Payment</button>
+    </div>
+
+    <!-- Step 3 → Payment -->
+    <div id="paymentSection" class="hidden mt-6">
+      <h2 class="text-lg font-semibold">Select Payment Method</h2>
+      <button onclick="showUPIPayment()" class="mt-2 px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Pay with UPI</button>
+      <button onclick="completePayment('Cash on Delivery')" class="mt-2 px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">Cash on Delivery</button>
+
+      <!-- UPI QR Code Section -->
+      <div id="upiSection" class="hidden mt-4 text-center">
+        <h3 class="font-semibold">Scan & Pay</h3>
+        <div id="qrcode" class="my-3 flex justify-center"></div>
+        <a id="upiLink" href="#" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Pay via UPI App</a>
+        <button onclick="completePayment('UPI')" class="block mt-3 bg-green-600 text-white px-4 py-2 rounded-lg">I have paid</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let totalAmount = 0;
+    let orderCounter = parseInt(localStorage.getItem("orderCounter") || "7"); // Start from ENIPSEE0007
+
+    // ✅ Allowed pincodes
+    const serviceablePincodes = ["767061","767026","767022"];
+
+    function loadCartPage() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const itemsDiv = document.getElementById("cartPageItems");
+      const summaryDiv = document.getElementById("cartPageSummary");
+
+      if (cart.length === 0) {
+        itemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+        document.getElementById("continueBtn").classList.add("hidden");
+        return;
+      }
+
+      totalAmount = 0;
+      itemsDiv.innerHTML = cart.map(item => {
+        totalAmount += item.price * item.quantity;
+        return `<div class="p-4 bg-gray-50 shadow rounded">
+          <b>${item.name}</b> - ₹${item.price} × ${item.quantity}
+        </div>`;
+      }).join("");
+
+      summaryDiv.innerHTML = `Total: ₹${totalAmount.toFixed(2)}`;
+    }
+
+    // Step 1 → Step 2
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      document.getElementById("continueBtn").classList.add("hidden");
+      document.getElementById("customerForm").classList.remove("hidden");
+    });
+
+    // Step 2 → Step 3
+    document.getElementById("proceedPaymentBtn").addEventListener("click", () => {
+      const pincode = customerPincode.value.trim();
+
+      if (!customerName.value || !customerPhone.value || !customerAddress.value || !pincode) {
+        alert("⚠️ Please fill all customer details");
+        return;
+      }
+
+      if (!serviceablePincodes.includes(pincode)) {
+        const notServiceableMessages = [
+          "🚧 Sorry! We don’t deliver to this pincode yet. Stay tuned!",
+          "📦 Delivery in your area will be available soon. Please try another pincode.",
+          "🙏 Currently not serviceable, but expanding to your area shortly!",
+          "⚡ We’re growing fast! Delivery to this pincode coming soon.",
+          "🚚 Not available right now, but we’ll reach you very soon!",
+          "❌ Delivery unavailable in this pincode. Try a nearby one."
+        ];
+        alert(notServiceableMessages[Math.floor(Math.random() * notServiceableMessages.length)]);
+        return;
+      }
+
+      localStorage.setItem("customerDetails", JSON.stringify({
+        name: customerName.value,
+        phone: customerPhone.value,
+        address: customerAddress.value,
+        pincode: pincode
+      }));
+
+      document.getElementById("customerForm").classList.add("hidden");
+      document.getElementById("paymentSection").classList.remove("hidden");
+
+      document.getElementById("cartPageSummary").innerHTML += `<p class="text-green-600 mt-2">🚚 Estimated Delivery: 2–3 Days</p>`;
+    });
+
+    // Show UPI Payment
+    function showUPIPayment() {
+      const upiID = "nipunsahu@oksbi";
+      const name = "Nipun Medicine Store";
+      const txnId = "TXN" + Date.now();
+
+      const upiURL = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&tr=${txnId}&am=${totalAmount}&cu=INR&tn=Medicine+Order`;
+
+      document.getElementById("upiSection").classList.remove("hidden");
+
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
+        text: upiURL,
+        width: 150,
+        height: 150
+      });
+
+      document.getElementById("upiLink").href = upiURL;
+    }
+
+    // ✅ Complete Payment (Order ID starts ENIPSEE0007…)
+    function completePayment(method) {
+      if (method === "UPI" && !confirm("Have you completed the UPI payment?")) {
+        return;
+      }
+
+      orderCounter++;
+      localStorage.setItem("orderCounter", orderCounter);
+
+      const orderId = "ENIPSEE" + String(orderCounter).padStart(4, "0");
+      const customer = JSON.parse(localStorage.getItem("customerDetails"));
+      const cart = JSON.parse(localStorage.getItem("cart"));
+
+      const order = {
+        id: orderId,
+        items: cart,
+        total: totalAmount,
+        paymentMethod: method,
+        customer: customer,
+        status: "Pending"
+      };
+
+      // ✅ Always save to "orders" (single key for all)
+      let orders = JSON.parse(localStorage.getItem("orders") || "[]");
+      orders.push(order);
+      localStorage.setItem("orders", JSON.stringify(orders));
+
+      alert(`✅ Order Placed Successfully!\n🆔 Order ID: ${orderId}\n💳 Payment: ${method}`);
+
+      // Cleanup
+      localStorage.removeItem("cart");
+      localStorage.removeItem("customerDetails");
+
+      // Redirect to home
+      window.location.href = "index.html";
+    }
+
+    loadCartPage();
+  </script>
+</body>
+</html>

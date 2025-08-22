@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MAA JHARBANDHALIAN MEDICINE STORE</title>
+  <script src="script.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen bg-gradient-to-b from-white via-[#f0fdf4] to-[#e0f7fa] text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow p-4 flex justify-between items-center flex-wrap">
+    <div class="w-full text-center bg-gradient-to-r from-yellow-50 via-white to-yellow-100 py-6 shadow-md rounded-b-xl">
+      <img src="LOGO.png" alt="Logo" class="h-20 w-20 rounded-full shadow mx-auto mb-2" />
+      <h1 class="text-5xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-600 to-orange-500 bg-clip-text text-transparent drop-shadow-xl">
+        MAA JHARBANDHALIAN
+      </h1>
+      <span class="text-3xl font-bold bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 bg-clip-text text-transparent tracking-wider drop-shadow-lg">
+        MEDICINE STORE
+      </span>
+    </div>
+    <a href="admin.html" class="bg-gray-800 text-white px-3 py-1 rounded">Admin Login</a>
+    <a href="cart.html" class="relative flex items-center gap-1 px-2">
+      <i class="fas fa-shopping-cart text-xl text-blue-600"></i>
+      <span id="navbarCartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">0</span>
+    </a>
+    <div class="flex flex-wrap items-center gap-2 mt-2 sm:mt-0">
+      <input id="productSearch" type="text" placeholder="Search..." class="border p-1 rounded" />
+      <button id="logoutCustomer" class="bg-red-500 text-white px-3 py-1 rounded hidden">Logout</button>
+      <a href="https://wa.me/919556381309" target="_blank" class="flex items-center gap-1 px-2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="h-6 w-6" />
+        <span class="text-green-600 font-semibold">Chat</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- WhatsApp Order Banner -->
+  <div class="mt-6 mb-6 flex items-center justify-between bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg shadow">
+    <div class="flex items-center space-x-3">
+      <img src="LOGO.png" alt="Store Logo" class="h-12 rounded"> 
+      <div>
+        <p class="text-lg font-bold text-gray-800">Yay! Now you can</p>
+        <p class="text-2xl font-extrabold text-green-600">WHATSAPP <span class="text-blue-700">TO ORDER</span></p>
+      </div>
+    </div>
+    <a href="https://wa.me/919556381309" target="_blank" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg flex items-center space-x-2">
+      <span>Whatsapp @+91-9556381309</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="h-5 w-5" alt="whatsapp">
+    </a>
+  </div>
+
+  <!-- Product Grid (dynamically rendered from script.js) -->
+  <section id="mainContent" class="p-4">
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <!-- JS will render product cards here -->
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-green-700 mb-6 text-center">🌟 Featured Products</h2>
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="bg-white p-4 rounded shadow text-center">
+        <img src="neurobion-forte-injection.webp" alt="NEUROBION FORTE INJ" class="h-32 mx-auto mb-3 object-contain">
+        <h3 class="font-bold text-lg mb-1">NEUROBION FORTE INJ</h3>
+        <p class="text-green-600 font-semibold">₹21.77</p>
+        <button class="mt-2 bg-blue-500 text-white px-3 py-1 rounded">Add to Cart</button>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <img src="CHYAWANPRASH.jpg" alt="CHYAWANPRASH 500 GM" class="h-32 mx-auto mb-3 object-contain">
+        <h3 class="font-bold text-lg mb-1">CHYAWANPRASH 500 GM</h3>
+        <p class="text-green-600 font-semibold">₹235.00</p>
+        <button class="mt-2 bg-blue-500 text-white px-3 py-1 rounded">Add to Cart</button>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <img src="amlovas.webp" alt="AMLOVAS 5MG TAB" class="h-32 mx-auto mb-3 object-contain">
+        <h3 class="font-bold text-lg mb-1">AMLOVAS 5MG TAB</h3>
+        <p class="text-green-600 font-semibold">₹42.00</p>
+        <button class="mt-2 bg-blue-500 text-white px-3 py-1 rounded">Add to Cart</button>
+      </div>
+      <div class="bg-white p-4 rounded shadow text-center">
+        <img src="losil.webp" alt="HAJMOLA IMLI SACHET" class="h-32 mx-auto mb-3 object-contain">
+        <h3 class="font-bold text-lg mb-1">HAJMOLA IMLI SACHET</h3>
+        <p class="text-green-600 font-semibold">₹170.00</p>
+        <button class="mt-2 bg-blue-500 text-white px-3 py-1 rounded">Add to Cart</button>
+        <button onclick="showMyOrders()">My Orders</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Shop With Us -->
+  <section class="bg-white py-8 mt-10 shadow-inner">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-center text-2xl font-bold text-green-700 mb-6">Why Shop With Us</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 text-center">
+        <div><i class="fas fa-certificate text-3xl text-green-600"></i><p class="text-sm mt-2 font-medium">100% Genuine Medicines</p></div>
+        <div><i class="fas fa-lock text-3xl text-blue-600"></i><p class="text-sm mt-2 font-medium">Secure Payments</p></div>
+        <div><i class="fas fa-user-md text-3xl text-yellow-600"></i><p class="text-sm mt-2 font-medium">Licensed Pharmacy</p></div>
+        <div><i class="fas fa-truck text-3xl text-indigo-600"></i><p class="text-sm mt-2 font-medium">Fast Local Delivery</p></div>
+        <div><i class="fas fa-undo text-3xl text-red-600"></i><p class="text-sm mt-2 font-medium">Easy Returns (48 hrs)</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Track Your Order -->
+  <div class="mt-6">
+    <h3 class="text-lg font-semibold mb-2">Track Your Order</h3>
+    <div class="flex items-center gap-2">
+      <input id="orderTrackInput" placeholder="Enter Order ID (e.g. ORDER123456)" class="border p-2 rounded w-full max-w-xs" />
+      <button onclick="trackMyOrder()" class="bg-blue-600 text-white px-4 py-2 rounded">Track</button>
+    </div>
+  </div>
+  <script>
+    function trackMyOrder() {
+      const id = document.getElementById("orderTrackInput").value.trim();
+      if (id) {
+        window.open(`track.html?id=${id}`, "_blank");
+      } else {
+        alert("Please enter a valid Order ID.");
+      }
+    }
+  </script>
+
+  <!-- Show My Orders -->
+  <button onclick="showOrderHistory()" class="bg-blue-600 text-white px-4 py-2 rounded mt-4">📋 Show My Orders</button>
+  <div id="orderHistory" class="hidden mt-4 bg-white border border-gray-200 rounded p-4 shadow text-sm"></div>
+
+  <!-- Customer Login Modal -->
+  <div id="customerLoginModal" class="modal hidden">
+    <div class="modal-content">
+      <form id="customerLoginForm">
+        <h3 class="text-lg font-semibold mb-2">Customer Login</h3>
+        <input id="loginPhone" type="text" placeholder="Phone Number" required />
+        <input id="loginPassword" type="password" placeholder="Password" required />
+        <button type="submit" class="bg-blue-600 text-white mt-2 px-4 py-1 rounded">Login</button>
+      </form>
+      <p class="mt-2 text-sm">New user? <a href="#" id="showSignup" class="text-green-600 underline">Sign up here</a></p>
+    </div>
+  </div>
+  <!-- Customer Signup Modal -->
+  <div id="customerSignupModal" class="modal hidden">
+    <div class="modal-content">
+      <form id="customerSignupForm">
+        <h3 class="text-lg font-semibold mb-2">Customer Signup</h3>
+        <input id="signupName" type="text" placeholder="Full Name" required />
+        <input id="signupPhone" type="text" placeholder="Phone Number" required />
+        <input id="signupPassword" type="password" placeholder="Password" required />
+        <button type="submit" class="bg-green-600 text-white mt-2 px-4 py-1 rounded">Sign Up</button>
+      </form>
+      <p class="mt-2 text-sm"><a href="#" id="closeSignup" class="text-red-500 underline">Cancel</a></p>
+    </div>
+  </div>
+  <!-- Admin Login Modal -->
+  <div id="adminLoginModal" class="modal hidden z-50">
+    <div class="modal-content max-w-sm w-full relative bg-white text-gray-800">
+      <button onclick="document.getElementById('adminLoginModal').classList.add('hidden')" class="absolute top-3 right-4 text-red-500 text-xl hover:text-red-700">&times;</button>
+      <h3 class="text-2xl font-bold text-center text-blue-700 mb-4">🔐 Admin Login</h3>
+      <form id="adminLoginForm" class="space-y-4">
+        <div>
+          <label for="loginUsername" class="block text-sm font-medium">Username</label>
+          <input id="loginUsername" type="text" required class="mt-1 w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div>
+          <label for="loginPassword" class="block text-sm font-medium">Password</label>
+          <div class="relative">
+            <input id="loginPassword" type="password" required class="mt-1 w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <span onclick="togglePassword()" class="absolute inset-y-0 right-3 flex items-center text-sm text-gray-500 hover:text-blue-600 cursor-pointer select-none">👁</span>
+          </div>
+        </div>
+        <button type="button" onclick="login(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value)">Login</button>
+      </form>
+      <p class="text-xs text-center text-gray-400 mt-4">For authorized users only</p>
+    </div>
+  </div>
+  <!-- UPI Modal -->
+  <div id="upiModal" class="modal hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg text-center max-w-sm w-full shadow-xl">
+      <h3 class="text-xl font-bold text-green-700 mb-4">📲 Scan & Pay</h3>
+      <img src="images/upi-qr.png" alt="UPI QR Code" class="w-48 mx-auto border rounded mb-3" />
+      <p class="mb-1 text-gray-600">or send to UPI ID:</p>
+      <p class="text-lg font-mono text-gray-800 font-semibold mb-4">6372556219@ptsbi</p>
+      <button onclick="confirmUPIPayment()" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded">✅ I have paid</button>
+      <button onclick="document.getElementById('upiModal').classList.add('hidden')" class="text-red-500 mt-3 underline">Cancel</button>
+    </div>
+  </div>
+  <div id="myOrdersModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>My Orders</h2>
+      <div id="myOrdersContainer"></div>
+      <button onclick="document.getElementById('myOrdersModal').classList.add('hidden')">Close</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-10 mt-10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <!-- Important Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-3 text-yellow-400">Important Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="about.html" class="hover:text-yellow-300">About Us</a></li>
+          <li><a href="contact.html" class="hover:text-yellow-300">Contact Us</a></li>
+          <li><a href="privacy.html" class="hover:text-yellow-300">Privacy Policy</a></li>
+          <li><a href="terms.html" class="hover:text-yellow-300">Terms & Conditions</a></li>
+          <li><a href="faqs.html" class="hover:text-yellow-300">FAQs</a></li>
+        </ul>
+      </div>
+      <!-- Store Info -->
+      <div>
+        <h3 class="text-lg font-bold mb-3 text-yellow-400">Store Info</h3>
+        <p class="text-sm">
+          MAA JHARBANDHALIAN MEDICINE STORE<br>
+          AT - Fatamunda, Dist - Balangir<br>
+          Odisha, 767061<br>
+          Phone: <a href="tel:+919556381309" class="text-blue-400 hover:underline">+91-95563 81309</a>
+        </p>
+      </div>
+      <!-- Social Media -->
+      <div>
+        <h3 class="text-lg font-bold mb-3 text-yellow-400">Connect</h3>
+        <div class="flex gap-4 text-2xl">
+          <a href="#" title="Facebook" class="hover:text-blue-500"><i class="fab fa-facebook"></i></a>
+          <a href="#" title="Instagram" class="hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/919556381309" title="WhatsApp" class="hover:text-green-400"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Founder Info -->
+      <div class="flex flex-col items-center sm:items-end text-center sm:text-right">
+        <img src="your-photo.png" alt="Founder Photo" class="w-24 h-24 rounded-full shadow-lg border-2 border-white mb-2 object-cover" />
+        <p class="text-lg font-semibold text-yellow-300">NIPUN SAHU (FOUNDER)</p>
+        <p class="text-sm text-gray-400">MAA JHARBANDHALIAN<br>MEDICINE STORE</p>
+      </div>
+    </div>
+    <div class="text-center mt-6 text-gray-500 text-xs">
+      &copy; 2025 MAA JHARBANDHALIAN MEDICINE STORE<br>
+      <a href="#top" class="text-blue-400 hover:underline">Back to Top ↑</a>
+    </div>
+  </footer>
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/916372556219"
+    style="position:fixed;bottom:22px;right:22px;z-index:9999;padding:14px 18px;background:#25d366;color:#fffbd7;border-radius:50px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px #1abb7b;">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp.png" alt="WhatsApp" style="vertical-align:middle;width:26px;margin-right:6px;">
+    Chat on WhatsApp
+  </a>
+</body>
+</html>
